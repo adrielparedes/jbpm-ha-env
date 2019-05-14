@@ -1,0 +1,5 @@
+nfs/niogit*/*
+!nfs/niogit*/.gitkeep
+.env
+wildfly/deployments*/*
+!wildfly/deployments*/.gitkeep
