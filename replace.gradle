@@ -1,0 +1,50 @@
+
+// gradle -b replace.gradle -q updateWar
+
+def targetFolder = 
+            "/data/dev/workspace/redhat/bsig-dev/kie-wb-distributions/business-central-parent/"+
+            "business-central-distribution-wars/business-central/target";
+
+// def warName = "business-central-7.21.0-SNAPSHOT-wildfly14.war";
+def warName = "business-central-7.23.0-SNAPSHOT-eap7-redhat.war";
+
+def m2 = "/home/aparedes/.m2/repository/org/infinispan";
+
+def libsFolder = "WEB-INF/lib";
+
+def communityVersion  = "9.4.9.Final";
+def rhdgVersion = "9.4.13.Final-redhat-00001";
+
+
+def dependencies = [
+    "infinispan-query-dsl",
+    "infinispan-commons",
+    "infinispan-remote-query-client",
+    "infinispan-client-hotrod"
+    ]
+
+
+task updateWar(){
+    delete "./output";
+    
+    def originalWar = file("${targetFolder}/${warName}")
+    def outputDir = file("./output/src")
+
+    copy {
+            //Step 1
+            from(zipTree(originalWar)) { 
+                exclude "WEB-INF/lib/infinispan-*.jar"
+            }
+            into outputDir
+        }
+    dependencies.each { dep ->
+        copy {
+            from "${m2}/${dep}/${rhdgVersion}/${dep}-${rhdgVersion}.jar"
+            into "${outputDir}/WEB-INF/lib"
+        }
+    }
+
+        ant.war(update: "true", destfile: "./output/${warName}") {
+             fileset(dir: outputDir)
+         }
+    }

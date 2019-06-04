@@ -22,29 +22,29 @@ services:
     links:
       - infinispan
       - artemis
-  wildfly2:
-    build: ./wildfly
-    container_name: wildfly-2
-    ports:
-      - '8280:8080'
-      - '9992:9990'
-    # cpus: '2'
-    environment:
-      - APPFORMER_JMS_MODE=REMOTE
-      - 'APPFORMER_JMS_URL="tcp://artemis:61616?ha=true&retryInterval=1000&retryIntervalMultiplier=1.0&reconnectAttempts=-1"'
-      - APPFORMER_JMS_USERNAME=admin
-      - APPFORMER_JMS_PASSWORD=admin
-      - METADATA_INDEX=infinispan
-      - METADATA_PORT=11222
-      - METADATA_HOST=infinispan
-    volumes:
-      - './wildfly/deployments2:/opt/jboss/wildfly/standalone/deployments'
-      - './nfs/niogit2/.niogit:/opt/jboss/.niogit:rw'
-    links:
-      - infinispan
-      - artemis
-    depends_on:
-      - wildfly1
+  # wildfly2:
+  #   build: ./wildfly
+  #   container_name: wildfly-2
+  #   ports:
+  #     - '8280:8080'
+  #     - '9992:9990'
+  #   # cpus: '2'
+  #   environment:
+  #     - APPFORMER_JMS_MODE=REMOTE
+  #     - 'APPFORMER_JMS_URL="tcp://artemis:61616?ha=true&retryInterval=1000&retryIntervalMultiplier=1.0&reconnectAttempts=-1"'
+  #     - APPFORMER_JMS_USERNAME=admin
+  #     - APPFORMER_JMS_PASSWORD=admin
+  #     - METADATA_INDEX=infinispan
+  #     - METADATA_PORT=11222
+  #     - METADATA_HOST=infinispan
+  #   volumes:
+  #     - './wildfly/deployments2:/opt/jboss/wildfly/standalone/deployments'
+  #     - './nfs/niogit2/.niogit:/opt/jboss/.niogit:rw'
+  #   links:
+  #     - infinispan
+  #     - artemis
+  #   depends_on:
+  #     - wildfly1
   infinispan:
     image: 'jboss/infinispan-server:9.4.11.Final'
     container_name: infinispan
