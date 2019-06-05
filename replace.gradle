@@ -1,27 +1,42 @@
 
 // gradle -b replace.gradle -q updateWar
 
-def targetFolder = 
-            "/data/dev/workspace/redhat/bsig-dev/kie-wb-distributions/business-central-parent/"+
-            "business-central-distribution-wars/business-central/target";
+def targetFolder = "/data/dev/workspace/redhat/bsig-dev/kie-wb-distributions/business-central-parent/business-central-distribution-wars/business-central/target";
+// def targetFolder = "/home/paulo/projects/redhat/forks-HA/kie-wb-distributions/business-central-parent/business-central-distribution-wars/business-central/target";
 
-// def warName = "business-central-7.21.0-SNAPSHOT-wildfly14.war";
-def warName = "business-central-7.23.0-SNAPSHOT-eap7-redhat.war";
+def warName = "business-central-7.24.0-SNAPSHOT-eap7.war";
 
-def m2 = "/home/aparedes/.m2/repository/org/infinispan";
+def m2 = "/home/aparedes/.m2/repository";
+// def m2 = "/home/paulo/.m2/repository";
 
 def libsFolder = "WEB-INF/lib";
 
 def communityVersion  = "9.4.9.Final";
 def rhdgVersion = "9.4.13.Final-redhat-00001";
 
+def dependenciesToRemove = [
+    "org/infinispan:infinispan-query-dsl:9.4.9.Final",
+    "org/infinispan:infinispan-commons:9.4.9.Final",
+    "org/infinispan:infinispan-remote-query-client:9.4.9.Final",
+    "org/infinispan:infinispan-client-hotrod:9.4.9.Final",
+    "org/uberfire:uberfire-security-management-wildfly:2.21.0-SNAPSHOT",
+    "org/uberfire:uberfire-security-management-tomcat:2.21.0-SNAPSHOT"
+]
 
-def dependencies = [
-    "infinispan-query-dsl",
-    "infinispan-commons",
-    "infinispan-remote-query-client",
-    "infinispan-client-hotrod"
-    ]
+def dependenciesToAdd = [
+    "org/infinispan:infinispan-query-dsl:9.4.13.Final-redhat-00001",
+    "org/infinispan:infinispan-commons:9.4.13.Final-redhat-00001",
+    "org/infinispan:infinispan-remote-query-client:9.4.13.Final-redhat-00001",
+    "org/infinispan:infinispan-client-hotrod:9.4.13.Final-redhat-00001",
+    "org/uberfire:uberfire-security-management-keycloak:2.21.0-SNAPSHOT",
+    "org/keycloak:keycloak-core:3.4.3.Final",
+    "org/keycloak:keycloak-common:3.4.3.Final"
+]
+
+def filesToReplace = [
+    "./input/security-management.properties:WEB-INF/classes",
+    "./input/jboss-deployment-structure.xml:META-INF"
+]
 
 
 task updateWar(){
@@ -31,20 +46,33 @@ task updateWar(){
     def outputDir = file("./output/src")
 
     copy {
-            //Step 1
-            from(zipTree(originalWar)) { 
-                exclude "WEB-INF/lib/infinispan-*.jar"
+        from(zipTree(originalWar)) { 
+            dependenciesToRemove.each { dep ->
+                def depData = dep.split(":")
+                exclude "WEB-INF/lib/${depData[1]}-${depData[2]}.jar"
             }
-            into outputDir
         }
-    dependencies.each { dep ->
+
+        into outputDir
+    }
+
+    dependenciesToAdd.each { dep ->
         copy {
-            from "${m2}/${dep}/${rhdgVersion}/${dep}-${rhdgVersion}.jar"
+            def depData = dep.split(":")
+            from "${m2}/${depData[0]}/${depData[1]}/${depData[2]}/${depData[1]}-${depData[2]}.jar"
             into "${outputDir}/WEB-INF/lib"
         }
     }
 
-        ant.war(update: "true", destfile: "./output/${warName}") {
-             fileset(dir: outputDir)
-         }
+    filesToReplace.each { file ->
+        copy {
+            def fileData = file.split(":")
+            from "${fileData[0]}"
+            into "${outputDir}/${fileData[1]}"
+        }
     }
+
+    ant.war(update: "true", destfile: "./output/${warName}") {
+         fileset(dir: outputDir)
+    }
+}
