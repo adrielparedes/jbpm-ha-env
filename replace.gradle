@@ -4,7 +4,7 @@
 def targetFolder = "/data/dev/workspace/redhat/bsig-dev/kie-wb-distributions/business-central-parent/business-central-distribution-wars/business-central/target";
 // def targetFolder = "/home/paulo/projects/redhat/forks-HA/kie-wb-distributions/business-central-parent/business-central-distribution-wars/business-central/target";
 
-def warName = "business-central-7.24.0-SNAPSHOT-eap7.war";
+def warName = "business-central-7.24.0-SNAPSHOT-eap7-redhat.war";
 
 def m2 = "/home/aparedes/.m2/repository";
 // def m2 = "/home/paulo/.m2/repository";

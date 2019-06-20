@@ -3,3 +3,6 @@ nfs/niogit*/*
 .env
 wildfly/deployments*/*
 !wildfly/deployments*/.gitkeep
+.gradle
+.vscode
+output
