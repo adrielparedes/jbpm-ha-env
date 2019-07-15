@@ -8,7 +8,7 @@ WEBAPP=kie-wb-distributions/business-central-parent/business-central-webapp
 # ARTIFACT=business-central-7.24.0-SNAPSHOT-eap7-redhat.war
 
 #FROM=$WORKSPACE/$DISTRIBUTIONS/business-central/target/$ARTIFACT
-FROM=$WORKSPACE/$WEBAPP/target/business-central-webapp.war
+#FROM=$WORKSPACE/$WEBAPP/target/business-central-webapp.war
 
 #FROM=/data/dev/workspace/redhat/bsig-dev/drools-wb/drools-wb-webapp/target/drools-wb-webapp.war
 
@@ -18,8 +18,7 @@ FROM=$WORKSPACE/$WEBAPP/target/business-central-webapp.war
 ###### DROOLS-WB ######
 #FROM=/data/dev/workspace/redhat/bsig-dev/drools-wb/drools-wb-webapp/target/drools-wb-webapp.war
 
-
-#FROM=/Users/aparedes/Downloads/business-central-webapp.war
+FROM=/data/dev/docker-scripts/jenkins/data/workspace/HA/business-central-parent/business-central-distribution-wars/business-central/target/$ARTIFACT
 
 ###### TO ######
 TO_1=./wildfly/deployments1
