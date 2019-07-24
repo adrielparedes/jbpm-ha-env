@@ -16,9 +16,11 @@ services:
       - METADATA_INDEX=infinispan
       - METADATA_PORT=11222
       - METADATA_HOST=infinispan
+      - user.dir=
     volumes:
       - './wildfly/deployments1:/opt/jboss/wildfly/standalone/deployments'
       - './nfs/niogit1/.niogit:/opt/jboss/.niogit:rw'
+      - './nfs/niogit1/.kie-wb-playground:/opt/jboss/.kie-wb-playground:rw'
     links:
       - infinispan
       - artemis
@@ -40,14 +42,13 @@ services:
     volumes:
       - './wildfly/deployments2:/opt/jboss/wildfly/standalone/deployments'
       - './nfs/niogit2/.niogit:/opt/jboss/.niogit:rw'
+      - './nfs/niogit2/.kie-wb-playground:/opt/jboss/.kie-wb-playground:rw'
     links:
       - infinispan
-      - artemis
-    depends_on:
-      - wildfly1
+      - artemis 
   infinispan:
     image: 'jboss/infinispan-server:9.4.11.Final'
-    container_name: infinispan
+    container_name: infinispa
     environment:
       - APP_USER=user
       - APP_PASS=user

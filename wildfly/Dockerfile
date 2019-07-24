@@ -9,6 +9,7 @@ ADD conf/standalone.conf /opt/jboss/wildfly/bin/standalone.conf
 RUN sed -i -r 's/(<root-logger>)/<logger category="org.infinispan.client.hotrod.impl.protocol.Codec21"><level name="ERROR"\/><\/logger>\n\1/' /opt/jboss/wildfly/standalone/configuration/standalone-full.xml
 RUN sed -i -r 's/(<root-logger>)/<logger category="org.infinispan.protostream.impl.AnnotatedDescriptorImpl"><level name="ERROR"\/><\/logger>\n\1/' /opt/jboss/wildfly/standalone/configuration/standalone-full.xml
 RUN sed -i -r 's/(<root-logger>)/<logger category="org.guvnor.structure.backend"><level name="DEBUG"\/><\/logger>\n\1/' /opt/jboss/wildfly/standalone/configuration/standalone-full.xml
+RUN sed -i -r 's/(<root-logger>)/<logger category="org.kie.workbench.common.screens.examples.backend.server"><level name="DEBUG"\/><\/logger>\n\1/' /opt/jboss/wildfly/standalone/configuration/standalone-full.xml
 
 RUN sed -i -e 'N' -e 's/<console-handler name="CONSOLE">.*<level name="INFO"\/>/<console-handler name="CONSOLE"><level name="DEBUG"\/>/' /opt/jboss/wildfly/standalone/configuration/standalone-full.xml
 RUN cat /opt/jboss/wildfly/standalone/configuration/standalone-full.xml

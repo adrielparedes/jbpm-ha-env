@@ -1,8 +1,9 @@
 
 // gradle -b replace.gradle -q updateWar
 
-def targetFolder = "/data/dev/workspace/redhat/bsig-dev/kie-wb-distributions/business-central-parent/business-central-distribution-wars/business-central/target";
+// def targetFolder = "/data/dev/workspace/redhat/bsig-dev/kie-wb-distributions/business-central-parent/business-central-distribution-wars/business-central/target";
 // def targetFolder = "/home/paulo/projects/redhat/forks-HA/kie-wb-distributions/business-central-parent/business-central-distribution-wars/business-central/target";
+def targetFolder = "/Users/aparedes/Downloads";
 
 def warName = "business-central-7.24.0-SNAPSHOT-eap7-redhat.war";
 
