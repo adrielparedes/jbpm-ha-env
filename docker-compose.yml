@@ -16,7 +16,6 @@ services:
       - METADATA_INDEX=infinispan
       - METADATA_PORT=11222
       - METADATA_HOST=infinispan
-      - user.dir=
     volumes:
       - './wildfly/deployments1:/opt/jboss/wildfly/standalone/deployments'
       - './nfs/niogit1/.niogit:/opt/jboss/.niogit:rw'
@@ -30,6 +29,7 @@ services:
     ports:
       - '8280:8080'
       - '9992:9990'
+      - '8788:8787'
     # cpus: '2'
     environment:
       - APPFORMER_JMS_MODE=REMOTE
