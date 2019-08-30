@@ -5,39 +5,31 @@
 // def targetFolder = "/home/paulo/projects/redhat/forks-HA/kie-wb-distributions/business-central-parent/business-central-distribution-wars/business-central/target";
 def targetFolder = "/data/dev/docker-scripts/jenkins/data/workspace/HA/business-central-parent/business-central-distribution-wars/business-central/target"
 
-def warName = "business-central-7.24.0-SNAPSHOT-eap7-redhat.war";
+def warName = "business-central-7.27.0-SNAPSHOT-eap7-redhat.war";
 
 def m2 = "/home/aparedes/.m2/repository";
 // def m2 = "/home/paulo/.m2/repository";
 
 def libsFolder = "WEB-INF/lib";
 
-def communityVersion  = "9.4.9.Final";
-def rhdgVersion = "9.4.13.Final-redhat-00001";
+def communityVersion  = "9.4.15.Final";
+def rhdgVersion = "9.4.15.Final-redhat-00001";
 
 def dependenciesToRemove = [
-    "org/infinispan:infinispan-query-dsl:9.4.9.Final",
-    "org/infinispan:infinispan-commons:9.4.9.Final",
-    "org/infinispan:infinispan-remote-query-client:9.4.9.Final",
-    "org/infinispan:infinispan-client-hotrod:9.4.9.Final",
-    "org/uberfire:uberfire-security-management-wildfly:2.21.0-SNAPSHOT",
-    "org/uberfire:uberfire-security-management-tomcat:2.21.0-SNAPSHOT"
+    "org/infinispan:infinispan-query-dsl:9.4.15.Final",
+    "org/infinispan:infinispan-commons:9.4.15.Final",
+    "org/infinispan:infinispan-remote-query-client:9.4.15.Final",
+    "org/infinispan:infinispan-client-hotrod:9.4.15.Final"
 ]
 
 def dependenciesToAdd = [
-    "org/infinispan:infinispan-query-dsl:9.4.13.Final-redhat-00001",
-    "org/infinispan:infinispan-commons:9.4.13.Final-redhat-00001",
-    "org/infinispan:infinispan-remote-query-client:9.4.13.Final-redhat-00001",
-    "org/infinispan:infinispan-client-hotrod:9.4.13.Final-redhat-00001",
-    "org/uberfire:uberfire-security-management-keycloak:2.21.0-SNAPSHOT",
-    "org/keycloak:keycloak-core:3.4.3.Final",
-    "org/keycloak:keycloak-common:3.4.3.Final"
+    "org/infinispan:infinispan-query-dsl:9.4.15.Final-redhat-00001",
+    "org/infinispan:infinispan-commons:9.4.15.Final-redhat-00001",
+    "org/infinispan:infinispan-remote-query-client:9.4.15.Final-redhat-00001",
+    "org/infinispan:infinispan-client-hotrod:9.4.15.Final-redhat-00001"
 ]
 
-def filesToReplace = [
-    "./input/security-management.properties:WEB-INF/classes",
-    "./input/jboss-deployment-structure.xml:META-INF"
-]
+def filesToReplace = []
 
 
 task updateWar(){
